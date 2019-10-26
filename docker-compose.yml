@@ -1,0 +1,16 @@
+version: '3'
+services:
+  vpn:
+    network_mode: host
+    build:
+      dockerfile: Dockerfile
+      context: .
+    entrypoint:
+      - /root/startup.sh
+    env_file:
+      - vpn.env
+    image: debian-ike:0.1
+    restart: unless-stopped
+    privileged: true
+    container_name: vpn
+
