@@ -22,7 +22,8 @@ function finish {
 trap finish TERM INT
 
 
-check_vpn () {
+while true
+do
 	TUNNEL=$(ifconfig | grep "tap0")
 	if [ -n "$TUNNEL" ]; then
 		echo "$(date +"%T") - $BASENAME: tap0 is up"
@@ -33,9 +34,6 @@ check_vpn () {
 		ikec -r "${VPN_KEY_FILE}" -u ${VPN_LOGIN} -p ${VPN_PASS} -a &
 		sleep 10
 	fi
-	check_vpn
-}
-
-check_vpn
+done
 
 exit 0
